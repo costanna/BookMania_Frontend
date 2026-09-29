@@ -298,5 +298,8 @@
       "deleteSuccess": "Category deleted successfully",
       "deleteError": "Error deleting"
     }
+  },
+  "footer": {
+    "madeBy": "Made by"
   }
 }

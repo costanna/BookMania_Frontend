@@ -298,5 +298,8 @@
       "deleteSuccess": "Categoria eliminada correctament",
       "deleteError": "Error en eliminar"
     }
+  },
+  "footer": {
+    "madeBy": "Fet per"
   }
 }
