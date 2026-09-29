@@ -56,7 +56,17 @@ const BooksPage = () => {
   // list out from under the user.
   const hasLoadedOnce = useRef(false);
 
+  // Categories can resolve well after the books list (independent request,
+  // no shared timing), and that resolution re-runs the effect below with
+  // whatever page/search/category were current *then*. If the user has
+  // already moved on by the time an older request's response lands, applying
+  // it would silently drag the page back - e.g. Next looked instant, then
+  // snapped back to the previous page once the stale response arrived. Only
+  // the most recently *started* request is allowed to write to state.
+  const latestRequestId = useRef(0);
+
   const fetchBooks = useCallback(async (page = 0, titleAuthor = "", catId = "") => {
+    const requestId = ++latestRequestId.current;
     setLoading(true);
     try {
       const params = { page, size: PAGE_SIZE };
@@ -64,17 +74,20 @@ const BooksPage = () => {
       if (catId) params.categoryId = catId;
 
       const data = await bookService.getAll(params);
+      if (requestId !== latestRequestId.current) return; // a newer request is already in flight
 
       setBooks(data?.content || []);
       setTotalPages(data?.totalPages || 0);
       setTotalElements(data?.totalElements || 0);
-      setCurrentPage(data?.number || 0);
     } catch {
+      if (requestId !== latestRequestId.current) return;
       showToast(t("books.loadError"), "error");
       setBooks([]);
     } finally {
-      setLoading(false);
-      hasLoadedOnce.current = true;
+      if (requestId === latestRequestId.current) {
+        setLoading(false);
+        hasLoadedOnce.current = true;
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- showToast/t identity is stable enough for a mount-driven fetch
   }, []);

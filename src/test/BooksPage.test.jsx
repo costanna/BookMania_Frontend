@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { vi } from "vitest";
@@ -192,5 +192,47 @@ describe("BooksPage", () => {
 
     expect(screen.getByText("Catálogo de libros")).toBeInTheDocument();
     expect(screen.queryByText("Cien años de soledad")).not.toBeInTheDocument();
+  });
+
+  // Regression: a page changed twice while an earlier request was still in
+  // flight used to snap back once that stale response finally landed (the
+  // old code trusted whatever request resolved *last*, not whichever was
+  // requested *last*). Reproduced here with a slow first request that
+  // resolves only after a second, faster one already rendered its page.
+  test("una respuesta antigua que llega tarde no pisa la página ya actualizada", async () => {
+    const user = userEvent.setup();
+    let resolveStale;
+    const staleResponse = new Promise((resolve) => { resolveStale = resolve; });
+
+    const page1OnlyBook = { ...mockBooks[1], id: 99, title: "Libro exclusivo de la página 2" };
+
+    bookService.getAll
+      .mockResolvedValueOnce({ ...mockPagedResponse, totalPages: 2 }) // initial mount (page 0)
+      .mockResolvedValueOnce({ ...mockPagedResponse, totalPages: 2 }) // categories resolving re-runs the effect (still page 0)
+      .mockReturnValueOnce(staleResponse) // triggered by the category change below (page 0), kept pending
+      .mockResolvedValueOnce({ // triggered by clicking "Siguiente" right after (page 1)
+        content: [page1OnlyBook],
+        totalPages: 2,
+        totalElements: 3,
+        number: 1,
+      });
+
+    renderBooksPage();
+    await screen.findByText("Cien años de soledad");
+
+    await user.selectOptions(screen.getByRole("combobox"), "Ficción");
+    await user.click(screen.getByRole("button", { name: /siguiente/i }));
+
+    await screen.findByText("Libro exclusivo de la página 2");
+    expect(screen.getByText(/página 2 de 2/i)).toBeInTheDocument();
+
+    // The abandoned first request finally resolves - it must be ignored. Awaiting
+    // it inside act() flushes the state updates it would otherwise trigger, so a
+    // regression here fails deterministically instead of racing the assertion.
+    resolveStale({ ...mockPagedResponse, totalPages: 2 });
+    await act(async () => { await staleResponse; });
+
+    expect(screen.getByText("Libro exclusivo de la página 2")).toBeInTheDocument();
+    expect(screen.getByText(/página 2 de 2/i)).toBeInTheDocument();
   });
 });
