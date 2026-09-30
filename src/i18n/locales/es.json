@@ -118,7 +118,8 @@
       "reservationDone": "Reservado ✓",
       "reservationSuccess": "Reserva realizada correctamente",
       "reservationError": "Error al hacer la reserva"
-    }
+    },
+    "updating": "Actualizando…"
   },
   "pagination": {
     "first": "Primera página",

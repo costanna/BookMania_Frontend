@@ -49,4 +49,12 @@ describe("Pagination", () => {
     expect(screen.getByRole("button", { name: "Página 10" })).toBeInTheDocument();
     expect(screen.getAllByText("...").length).toBeGreaterThan(0);
   });
+
+  test("deshabilita todos los botones mientras se está cargando una página nueva", () => {
+    render(<Pagination currentPage={2} totalPages={5} onPageChange={() => {}} disabled />);
+
+    for (const button of screen.getAllByRole("button")) {
+      expect(button).toBeDisabled();
+    }
+  });
 });

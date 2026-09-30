@@ -163,15 +163,26 @@ const BooksPage = () => {
         </select>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-slate-300 mb-4" role="status" aria-live="polite">
-        {t("books.resultsCount", { count: totalElements })}
-        {totalPages > 1 && ` · ${t("books.pageOf", { current: currentPage + 1, total: totalPages })}`}
+      <p className="text-sm text-gray-600 dark:text-slate-300 mb-4 flex items-center gap-2" role="status" aria-live="polite">
+        <span>
+          {t("books.resultsCount", { count: totalElements })}
+          {totalPages > 1 && ` · ${t("books.pageOf", { current: currentPage + 1, total: totalPages })}`}
+        </span>
+        {loading && (
+          <span className="inline-flex items-center gap-1.5 text-pink-700 dark:text-pink-400">
+            <svg viewBox="0 0 24 24" fill="none" className="animate-spin w-3.5 h-3.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" className="opacity-25" />
+              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+            {t("books.updating")}
+          </span>
+        )}
       </p>
 
       {books.length === 0 ? (
         <p className="text-gray-600 dark:text-slate-400 text-center py-12">{t("books.noResults")}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-7 gap-6">
+        <div aria-busy={loading} className={`grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-7 gap-6 transition-opacity ${loading ? "opacity-50" : ""}`}>
           {books.map((book) => (
             <Link key={book.id} to={`/books/${book.id}`} className="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-600 focus-visible:ring-offset-2">
               <BookCover isbn={book.isbn} coverUrl={book.coverUrl} />
@@ -198,7 +209,7 @@ const BooksPage = () => {
         </div>
       )}
 
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} disabled={loading} />
     </div>
   );
 };

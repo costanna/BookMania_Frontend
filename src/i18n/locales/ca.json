@@ -118,7 +118,8 @@
       "reservationDone": "Reservat ✓",
       "reservationSuccess": "Reserva feta correctament",
       "reservationError": "Error en fer la reserva"
-    }
+    },
+    "updating": "Actualitzant…"
   },
   "pagination": {
     "first": "Primera pàgina",
