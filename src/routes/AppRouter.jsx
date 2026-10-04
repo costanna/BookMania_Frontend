@@ -54,10 +54,9 @@ const AppRouter = () => {
       <ToastProvider>
         <Suspense fallback={<PageFallback />}>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-
             <Route element={<Layout />}>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/" element={<BooksPage />} />
               <Route path="/books/:id" element={<BookDetailPage />} />
               <Route path="/my-loans" element={<PrivateRoute><MyLoansPage /></PrivateRoute>} />

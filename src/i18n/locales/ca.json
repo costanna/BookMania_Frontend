@@ -24,7 +24,9 @@
     "confirmActionTitle": "Confirma l'acció",
     "backToCatalog": "Torna al catàleg",
     "genericError": "S'ha produït un error. Torna-ho a provar.",
-    "close": "Tanca"
+    "close": "Tanca",
+    "showPassword": "Mostra la contrasenya",
+    "hidePassword": "Amaga la contrasenya"
   },
   "errorBoundary": {
     "title": "Alguna cosa ha anat malament",
@@ -40,8 +42,11 @@
     "password": {
       "title": "Canvia la contrasenya",
       "currentLabel": "Contrasenya actual",
+      "currentPlaceholder": "La teva contrasenya actual",
       "newLabel": "Nova contrasenya",
+      "newPlaceholder": "Mínim 6 caràcters",
       "confirmLabel": "Confirma la nova contrasenya",
+      "confirmPlaceholder": "Repeteix la nova contrasenya",
       "submit": "Desa els canvis",
       "submitting": "Desant...",
       "success": "Contrasenya actualitzada correctament.",
@@ -56,6 +61,7 @@
       "emailLabel": "Correu electrònic",
       "emailPlaceholder": "tu@email.com",
       "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "La teva contrasenya",
       "submit": "Inicia sessió",
       "submitting": "Iniciant sessió...",
       "noAccount": "No tens compte?",
@@ -71,6 +77,7 @@
       "emailLabel": "Correu electrònic",
       "emailPlaceholder": "tu@email.com",
       "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Mínim 6 caràcters",
       "submit": "Crea el compte",
       "submitting": "Creant el compte...",
       "haveAccount": "Ja tens compte?",

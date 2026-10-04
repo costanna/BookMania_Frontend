@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import useAuth from "../../hooks/useAuth";
 import authService from "../../api/authService";
 import useToast from "../../hooks/useToast";
+import PasswordInput from "../../components/common/PasswordInput";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -44,8 +45,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream-100 dark:bg-slate-900 flex items-center justify-center px-4">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-md w-full max-w-md p-8 border border-pink-100 dark:border-slate-700">
+    <div className="flex justify-center sm:py-8">
+      <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-pink-700 dark:text-pink-400">{t("auth.brand")}</h1>
           <p className="text-gray-600 dark:text-slate-400 mt-1">{t("auth.login.subtitle")}</p>
@@ -57,14 +58,14 @@ const LoginPage = () => {
             <input id="login-email" type="email" name="email" value={formData.email} onChange={handleChange} required
               autoComplete="email"
               placeholder={t("auth.login.emailPlaceholder")}
-              className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
           </div>
           <div>
             <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">{t("auth.login.passwordLabel")}</label>
-            <input id="login-password" type="password" name="password" value={formData.password} onChange={handleChange} required
+            <PasswordInput id="login-password" name="password" value={formData.password} onChange={handleChange} required
               autoComplete="current-password"
-              placeholder="••••••••"
-              className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
+              placeholder={t("auth.login.passwordPlaceholder")}
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
           </div>
           <button type="submit" disabled={loading}
             className="w-full bg-pink-700 hover:bg-pink-800 disabled:bg-pink-300 dark:bg-pink-600 dark:hover:bg-pink-500 dark:disabled:bg-pink-900 text-white font-medium rounded-lg py-2.5 text-sm transition-colors">

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import userService from "../../api/userService";
 import useAuth from "../../hooks/useAuth";
 import useToast from "../../hooks/useToast";
+import PasswordInput from "../../components/common/PasswordInput";
 
 const EMPTY_FORM = { currentPassword: "", newPassword: "", confirmPassword: "" };
 
@@ -52,24 +53,24 @@ const AccountPage = () => {
             <label htmlFor="account-current-password" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               {t("account.password.currentLabel")}
             </label>
-            <input id="account-current-password" type="password" name="currentPassword" value={formData.currentPassword}
-              onChange={handleChange} required autoComplete="current-password" placeholder="••••••••"
+            <PasswordInput id="account-current-password" name="currentPassword" value={formData.currentPassword}
+              onChange={handleChange} required autoComplete="current-password" placeholder={t("account.password.currentPlaceholder")}
               className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
           </div>
           <div>
             <label htmlFor="account-new-password" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               {t("account.password.newLabel")}
             </label>
-            <input id="account-new-password" type="password" name="newPassword" value={formData.newPassword}
-              onChange={handleChange} required autoComplete="new-password" placeholder="••••••••" minLength={6}
+            <PasswordInput id="account-new-password" name="newPassword" value={formData.newPassword}
+              onChange={handleChange} required autoComplete="new-password" placeholder={t("account.password.newPlaceholder")} minLength={6}
               className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
           </div>
           <div>
             <label htmlFor="account-confirm-password" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               {t("account.password.confirmLabel")}
             </label>
-            <input id="account-confirm-password" type="password" name="confirmPassword" value={formData.confirmPassword}
-              onChange={handleChange} required autoComplete="new-password" placeholder="••••••••" minLength={6}
+            <PasswordInput id="account-confirm-password" name="confirmPassword" value={formData.confirmPassword}
+              onChange={handleChange} required autoComplete="new-password" placeholder={t("account.password.confirmPlaceholder")} minLength={6}
               className="w-full border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent" />
           </div>
           <button type="submit" disabled={loading}
