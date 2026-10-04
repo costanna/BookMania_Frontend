@@ -164,7 +164,8 @@ npm run dev
 
 ## 🚢 Deploying to Railway
 
-The frontend ships with a `Dockerfile` and `railway.json`: the build stage runs `npm run build`
+The frontend ships with a `Dockerfile` and `.railway/railway.ts` (Railway Infrastructure as Code,
+applied with `railway config apply` - not on git push): the build stage runs `npm run build`
 and the run stage serves the static `dist/` output with [`serve`](https://www.npmjs.com/package/serve)
 (`-s` enables the SPA fallback that `BrowserRouter` needs).
 
@@ -402,7 +403,8 @@ npm run dev
 
 ## 🚢 Despliegue en Railway
 
-El frontend incluye un `Dockerfile` y un `railway.json`: la etapa de build ejecuta `npm run build`
+El frontend incluye un `Dockerfile` y un `.railway/railway.ts` (Infrastructure as Code de Railway,
+se aplica con `railway config apply`, no al hacer push): la etapa de build ejecuta `npm run build`
 y la etapa de ejecución sirve el `dist/` estático con [`serve`](https://www.npmjs.com/package/serve)
 (`-s` activa el fallback SPA que necesita `BrowserRouter`).
 

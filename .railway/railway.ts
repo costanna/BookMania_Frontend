@@ -14,8 +14,9 @@ export default defineRailway(() => {
     build: { builder: "DOCKERFILE", dockerfilePath: "Dockerfile" },
     deploy: {
       numReplicas: 1,
-      restartPolicyType: "ON_FAILURE",
-      restartPolicyMaxRetries: 10,
+      // Restart policy is left to Railway's default (ON_FAILURE, max 10
+      // retries - same as the old railway.json). Railway stores the default
+      // as unset, so declaring it here would show as a change on every plan.
       // Serverless: the service sleeps when idle.
       sleepApplication: true,
     },
