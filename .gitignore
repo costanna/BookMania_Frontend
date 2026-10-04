@@ -27,3 +27,5 @@ dist-ssr
 # Local tooling — never publish these, but harmless to deploy without them
 .claude/
 .github/
+# Railway IaC SDK (installed in .railway/ only to evaluate railway.ts)
+.railway/node_modules/
