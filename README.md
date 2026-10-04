@@ -8,8 +8,8 @@
 
 | | Repository |
 |--|--|
-| **Backend** | https://github.com/annahico/BookMania_Backend |
-| **Frontend** | https://github.com/annahico/BookMania_Frontend |
+| **Backend** | https://github.com/costanna/BookMania_Backend |
+| **Frontend** | https://github.com/costanna/BookMania_Frontend |
 
 ---
 
@@ -115,7 +115,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/annahico/BookMania_Backend.git
+git clone https://github.com/costanna/BookMania_Backend.git
 cd BookMania_Backend
 
 # 2. Create the PostgreSQL database
@@ -145,7 +145,7 @@ jwt.expiration=86400000
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/annahico/BookMania_Frontend.git
+git clone https://github.com/costanna/BookMania_Frontend.git
 cd BookMania_Frontend
 
 # 2. Install dependencies
@@ -169,7 +169,7 @@ and the run stage serves the static `dist/` output with [`serve`](https://www.np
 (`-s` enables the SPA fallback that `BrowserRouter` needs).
 
 1. Deploy the backend first (see its own README) and grab its public URL, e.g.
-   `https://bookmania-backend.up.railway.app`.
+   `https://bookmaniabackend-production.up.railway.app`.
 2. Create a new Railway service from this repo.
 3. In the service's **Variables** tab, set `VITE_API_URL` to that backend URL.
    > Vite bakes `VITE_*` variables into the bundle **at build time** — Railway passes service
@@ -246,8 +246,8 @@ src/
 
 | | Repositorio |
 |--|--|
-| **Backend** | https://github.com/annahico/BookMania_Backend |
-| **Frontend** | https://github.com/annahico/BookMania_Frontend |
+| **Backend** | https://github.com/costanna/BookMania_Backend |
+| **Frontend** | https://github.com/costanna/BookMania_Frontend |
 
 ---
 
@@ -353,7 +353,7 @@ src/
 
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/annahico/BookMania_Backend.git
+git clone https://github.com/costanna/BookMania_Backend.git
 cd BookMania_Backend
 
 # 2. Crea la base de datos
@@ -383,7 +383,7 @@ jwt.expiration=86400000
 
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/annahico/BookMania_Frontend.git
+git clone https://github.com/costanna/BookMania_Frontend.git
 cd BookMania_Frontend
 
 # 2. Instala las dependencias
@@ -407,7 +407,7 @@ y la etapa de ejecución sirve el `dist/` estático con [`serve`](https://www.np
 (`-s` activa el fallback SPA que necesita `BrowserRouter`).
 
 1. Despliega primero el backend (ver su propio README) y copia su URL pública, p. ej.
-   `https://bookmania-backend.up.railway.app`.
+   `https://bookmaniabackend-production.up.railway.app`.
 2. Crea un servicio nuevo en Railway a partir de este repo.
 3. En la pestaña **Variables** del servicio, configura `VITE_API_URL` con esa URL del backend.
    > Vite incrusta las variables `VITE_*` en el bundle **en tiempo de build** — Railway pasa las
@@ -477,4 +477,4 @@ src/
 
 **Anna Costa**
 [LinkedIn](https://www.linkedin.com/in/annahico/)
-[GitHub](https://github.com/annahico)
+[GitHub](https://github.com/costanna)
