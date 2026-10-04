@@ -2,14 +2,15 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import bookService from "../../api/bookService";
-import { getBookCover } from "../../utils/bookCover";
+import { getBookCover, sizedCoverUrl } from "../../utils/bookCover";
 import useToast from "../../hooks/useToast";
 import Pagination from "../../components/common/Pagination";
 import LoadingNotice from "../../components/common/LoadingNotice";
 
 const BookCover = ({ isbn, coverUrl }) => {
   const { t } = useTranslation();
-  const [cover, setCover] = useState(coverUrl || null);
+  // 400x600 covers the ~180px-wide card even on 2x screens.
+  const [cover, setCover] = useState(sizedCoverUrl(coverUrl, 400, 600) || null);
 
   useEffect(() => {
     let cancelled = false;

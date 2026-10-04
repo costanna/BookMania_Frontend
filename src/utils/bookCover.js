@@ -6,6 +6,18 @@
 // appearing in two lists rendered at once).
 const coverCache = new Map();
 
+// Most covers come from Apple's image CDN (mzstatic), whose URLs end in the
+// size and format to render, e.g. ".../600x600bb.jpg". Stored at 600x600 JPG
+// they weigh ~90 KB each - 1.5 MB for one catalog page, for images shown
+// ~180px wide. Asking the CDN for the size actually displayed, as WebP, is
+// ~28 KB at 400x600. URLs from any other host are returned untouched.
+const MZSTATIC_SIZE = /^(https:\/\/[^/]*mzstatic\.com\/.+)\/\d+x\d+bb\.(?:jpe?g|png|webp)$/i;
+
+export const sizedCoverUrl = (url, width, height) => {
+  const match = url?.match(MZSTATIC_SIZE);
+  return match ? `${match[1]}/${width}x${height}bb.webp` : url;
+};
+
 export const getBookCover = async (isbn) => {
   if (!isbn) return null;
 

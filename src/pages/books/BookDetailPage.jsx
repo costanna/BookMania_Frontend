@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import bookService from "../../api/bookService";
 import loanService from "../../api/loanService";
 import reservationService from "../../api/reservationService";
-import { getBookCover } from "../../utils/bookCover";
+import { getBookCover, sizedCoverUrl } from "../../utils/bookCover";
 import LoadingNotice from "../../components/common/LoadingNotice";
 import useAuth from "../../hooks/useAuth";
 import useToast from "../../hooks/useToast";
@@ -36,7 +36,7 @@ const BookDetailPage = () => {
           const url = await getBookCover(data.isbn);
           if (!cancelled) setCover(url);
         } else {
-          setCover(data.coverUrl);
+          setCover(sizedCoverUrl(data.coverUrl, 600, 900));
         }
       } catch (err) {
         if (!cancelled) setError(err.response?.data?.message || t("books.detail.loadError"));

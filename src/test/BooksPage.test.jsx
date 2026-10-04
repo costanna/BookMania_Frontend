@@ -11,6 +11,7 @@ vi.mock("../api/bookService");
 
 vi.mock("../utils/bookCover", () => ({
   getBookCover: vi.fn().mockResolvedValue(null),
+  sizedCoverUrl: (url) => url,
 }));
 
 const mockBooks = [
