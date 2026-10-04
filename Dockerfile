@@ -19,7 +19,9 @@ RUN npm run build
 FROM node:22-alpine
 WORKDIR /app
 
-RUN npm install -g serve
+# Pinned so a new major of serve can't change behaviour on an unrelated rebuild.
+# It reads dist/serve.json (copied from public/) for the Cache-Control headers.
+RUN npm install -g serve@14.2.6
 
 COPY --from=build /app/dist ./dist
 
