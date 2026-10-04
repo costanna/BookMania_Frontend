@@ -83,4 +83,19 @@ describe("LoginPage", () => {
     expect(screen.getByLabelText("Email")).toHaveAttribute("id", "login-email");
     expect(screen.getByLabelText("Contraseña")).toHaveAttribute("id", "login-password");
   });
+
+  test("el botón del ojo muestra y vuelve a ocultar la contraseña", async () => {
+    const user = userEvent.setup();
+    renderLoginAt("/login");
+    const input = screen.getByLabelText("Contraseña");
+    await user.type(input, "secret");
+    expect(input).toHaveAttribute("type", "password");
+
+    await user.click(screen.getByRole("button", { name: "Mostrar contraseña" }));
+    expect(input).toHaveAttribute("type", "text");
+    expect(input).toHaveValue("secret");
+
+    await user.click(screen.getByRole("button", { name: "Ocultar contraseña" }));
+    expect(input).toHaveAttribute("type", "password");
+  });
 });

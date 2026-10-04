@@ -24,7 +24,9 @@
     "confirmActionTitle": "Confirm action",
     "backToCatalog": "Back to catalog",
     "genericError": "Something went wrong. Please try again.",
-    "close": "Close"
+    "close": "Close",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "errorBoundary": {
     "title": "Something went wrong",
@@ -40,8 +42,11 @@
     "password": {
       "title": "Change password",
       "currentLabel": "Current password",
+      "currentPlaceholder": "Your current password",
       "newLabel": "New password",
+      "newPlaceholder": "At least 6 characters",
       "confirmLabel": "Confirm new password",
+      "confirmPlaceholder": "Repeat the new password",
       "submit": "Save changes",
       "submitting": "Saving...",
       "success": "Password updated successfully.",
@@ -56,6 +61,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "you@email.com",
       "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
       "submit": "Log in",
       "submitting": "Logging in...",
       "noAccount": "Don't have an account?",
@@ -71,6 +77,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "you@email.com",
       "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 6 characters",
       "submit": "Create account",
       "submitting": "Creating account...",
       "haveAccount": "Already have an account?",

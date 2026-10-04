@@ -24,7 +24,9 @@
     "confirmActionTitle": "Confirmar acción",
     "backToCatalog": "Volver al catálogo",
     "genericError": "Ha ocurrido un error. Inténtalo de nuevo.",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
   },
   "errorBoundary": {
     "title": "Algo salió mal",
@@ -40,8 +42,11 @@
     "password": {
       "title": "Cambiar contraseña",
       "currentLabel": "Contraseña actual",
+      "currentPlaceholder": "Tu contraseña actual",
       "newLabel": "Nueva contraseña",
+      "newPlaceholder": "Mínimo 6 caracteres",
       "confirmLabel": "Confirmar nueva contraseña",
+      "confirmPlaceholder": "Repite la nueva contraseña",
       "submit": "Guardar cambios",
       "submitting": "Guardando...",
       "success": "Contraseña actualizada correctamente.",
@@ -56,6 +61,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "tu@email.com",
       "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Tu contraseña",
       "submit": "Iniciar sesión",
       "submitting": "Iniciando sesión...",
       "noAccount": "¿No tienes cuenta?",
@@ -71,6 +77,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "tu@email.com",
       "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Mínimo 6 caracteres",
       "submit": "Crear cuenta",
       "submitting": "Creando cuenta...",
       "haveAccount": "¿Ya tienes cuenta?",

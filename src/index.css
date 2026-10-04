@@ -9,8 +9,15 @@ body {
 
 /* .dark is toggled on <html> by ThemeProvider; this is just the fallback
    paint behind the page before React mounts (avoids a light flash on load
-   for a dark-preference visitor) — Layout/LoginPage/RegisterPage each also
-   set their own dark: background explicitly. */
+   for a dark-preference visitor) — Layout also sets its own dark:
+   background explicitly. */
 .dark body {
   background-color: #0f172a;
+}
+
+/* PasswordInput draws its own show/hide toggle; Edge would otherwise add its
+   native reveal eye next to it, leaving two eye icons in the same field. */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
 }

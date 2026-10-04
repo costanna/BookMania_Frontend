@@ -18,9 +18,30 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// A GET that dies on a server/network hiccup gets one more try after a short
+// pause. In production this is mostly Railway restarting Postgres or waking
+// the backend: the request in flight 500s, and the very next one works.
+// Only GETs - they're safe to repeat; a retried POST could e.g. create the
+// same loan twice.
+export const RETRY_DELAY_MS = 1500;
+const RETRYABLE_STATUS = new Set([500, 502, 503, 504]);
+
+const shouldRetry = (error) => {
+  const { config } = error;
+  if (!config || config._retried || axios.isCancel(error)) return false;
+  if ((config.method || "get").toLowerCase() !== "get") return false;
+  return !error.response || RETRYABLE_STATUS.has(error.response.status);
+};
+
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    if (shouldRetry(error)) {
+      error.config._retried = true;
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+      return axiosInstance(error.config);
+    }
+
     if (error.response?.status === 401) {
       // Only the login/register screens themselves don't need this warning
       // (a 401 there just means "wrong password", handled inline) — anywhere

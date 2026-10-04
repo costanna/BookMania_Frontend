@@ -222,37 +222,45 @@ describe("BooksPage", () => {
     });
   });
 
-  // Regression: categories load independently of the books list, and once
-  // they resolve they re-run the same effect that fetches books - a second,
-  // parallel request for whatever page was current at mount. If the very
-  // first (mount) request was merely slower, not superseded by anything the
-  // user did, it could still land *after* that second request and overwrite
-  // its result with stale data. Reproduced here without any pagination click
-  // (now disabled while loading anyway) - purely the mount-time race between
-  // the books and categories requests.
-  test("una petición de montaje que tarda más no pisa la respuesta más reciente", async () => {
-    let resolveMountRequest;
-    const mountRequest = new Promise((resolve) => { resolveMountRequest = resolve; });
+  // Regression: the categories list resolving after mount used to re-run the
+  // books effect and fire a second, identical request for page 0 - the first
+  // load then had to wait for that extra round trip.
+  test("cargar las categorías no lanza una segunda petición de libros", async () => {
+    renderBooksPage();
+    await screen.findByText("Cien años de soledad");
+    await screen.findByRole("option", { name: "Fantasía" }); // categories have landed
 
+    expect(bookService.getAll).toHaveBeenCalledTimes(1);
+  });
+
+  // A slower, older request (here: an earlier search) landing after a newer
+  // one must not overwrite the newer result with stale data.
+  test("una petición que tarda más no pisa la respuesta más reciente", async () => {
+    const user = userEvent.setup();
+    renderBooksPage();
+    await screen.findByText("Cien años de soledad");
+
+    let resolveSlowRequest;
+    const slowRequest = new Promise((resolve) => { resolveSlowRequest = resolve; });
     const staleBook = { ...mockBooks[0], id: 100, title: "Libro obsoleto de la petición lenta" };
     const freshBook = { ...mockBooks[1], id: 101, title: "Libro fresco de la segunda petición" };
 
     bookService.getAll
-      .mockReturnValueOnce(mountRequest) // initial mount (page 0), kept pending on purpose
-      .mockResolvedValueOnce({ // categories resolving (fast) re-runs the effect before the mount request settles
-        content: [freshBook],
-        totalPages: 1,
-        totalElements: 1,
-        number: 0,
-      });
+      .mockReturnValueOnce(slowRequest) // first search, kept pending on purpose
+      .mockResolvedValueOnce({ content: [freshBook], totalPages: 1, totalElements: 1, number: 0 });
 
-    renderBooksPage();
-    await screen.findByText("Libro fresco de la segunda petición");
+    const input = screen.getByPlaceholderText("Buscar por título o autor...");
+    await user.type(input, "lento");
+    await waitFor(() => expect(bookService.getAll).toHaveBeenCalledTimes(2), { timeout: 2000 });
 
-    // The slower mount-time request finally resolves - it must be ignored,
-    // since a newer request already started (and finished) after it.
-    resolveMountRequest({ content: [staleBook], totalPages: 1, totalElements: 1, number: 0 });
-    await act(async () => { await mountRequest; });
+    await user.clear(input);
+    await user.type(input, "fresco");
+    await screen.findByText("Libro fresco de la segunda petición", {}, { timeout: 2000 });
+
+    // The older search finally resolves - it must be ignored, since a newer
+    // request already started (and finished) after it.
+    resolveSlowRequest({ content: [staleBook], totalPages: 1, totalElements: 1, number: 0 });
+    await act(async () => { await slowRequest; });
 
     expect(screen.getByText("Libro fresco de la segunda petición")).toBeInTheDocument();
     expect(screen.queryByText("Libro obsoleto de la petición lenta")).not.toBeInTheDocument();
