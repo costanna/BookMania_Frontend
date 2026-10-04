@@ -47,10 +47,7 @@ const LoginPage = () => {
   return (
     <div className="flex justify-center sm:py-8">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-pink-700 dark:text-pink-400">{t("auth.brand")}</h1>
-          <p className="text-gray-600 dark:text-slate-400 mt-1">{t("auth.login.subtitle")}</p>
-        </div>
+        <h1 className="text-2xl font-bold text-pink-700 dark:text-pink-400 text-center mb-8">{t("auth.login.subtitle")}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>

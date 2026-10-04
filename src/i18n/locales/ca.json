@@ -55,7 +55,6 @@
     }
   },
   "auth": {
-    "brand": "📚 BookMania",
     "login": {
       "subtitle": "Inicia sessió al teu compte",
       "emailLabel": "Correu electrònic",
