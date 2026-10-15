@@ -1,10 +1,20 @@
 import axios from "axios";
+import { isDemoChosen } from "./demo";
+
+// Demo mode (chosen on the login screen, or forced with VITE_USE_MOCK=true
+// for working on the UI without a backend): requests are answered inside the
+// browser instead of reaching the API, so the backend stays asleep. The mock
+// is a separate chunk, only downloaded when the demo is actually in use.
+export const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true" || isDemoChosen();
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  ...(USE_MOCK && {
+    adapter: async (config) => (await import("./mock/adapter")).mockAdapter(config),
+  }),
 });
 
 axiosInstance.interceptors.request.use(

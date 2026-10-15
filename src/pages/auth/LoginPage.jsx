@@ -5,7 +5,9 @@ import useAuth from "../../hooks/useAuth";
 import authService from "../../api/authService";
 import useToast from "../../hooks/useToast";
 import PasswordInput from "../../components/common/PasswordInput";
-import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "../../config/demoAccounts";
+import { DEMO_PASSWORD, DEMO_USERS, exitDemo, isDemoChosen, resetDemo, startDemo } from "../../api/demo";
+
+const demoButtonClass = "border border-pink-200 dark:border-slate-600 text-pink-700 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-slate-800 font-medium rounded-lg py-2 px-3 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-600";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -71,21 +73,38 @@ const LoginPage = () => {
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-pink-100 dark:border-slate-700">
-          <p className="text-center text-sm text-gray-600 dark:text-slate-400">{t("auth.login.demo.title")}</p>
-          <p className="text-center text-xs text-gray-500 dark:text-slate-500 mt-1">
-            {t("auth.login.demo.password")}{" "}
-            <code className="font-mono text-pink-700 dark:text-pink-400">{DEMO_PASSWORD}</code>
-          </p>
-          <div className="grid grid-cols-2 gap-3 mt-3">
-            {DEMO_ACCOUNTS.map((account) => (
-              <button key={account.key} type="button"
-                onClick={() => setFormData({ email: account.email, password: DEMO_PASSWORD })}
-                className="border border-pink-200 dark:border-slate-600 text-pink-700 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-slate-800 font-medium rounded-lg py-2 px-3 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-600">
-                {t(`auth.login.demo.${account.key}`)}
+        <div className="mt-8 pt-6 border-t border-pink-100 dark:border-slate-700 text-center">
+          {isDemoChosen() ? (
+            <>
+              <p className="text-sm text-gray-600 dark:text-slate-400">{t("demo.login.pickUser")}</p>
+              <p className="text-xs text-gray-500 dark:text-slate-500 mt-1">
+                {t("demo.login.password")}{" "}
+                <code className="font-mono text-pink-700 dark:text-pink-400">{DEMO_PASSWORD}</code>
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+                {DEMO_USERS.map((account) => (
+                  <button key={account.key} type="button"
+                    onClick={() => setFormData({ email: account.email, password: DEMO_PASSWORD })}
+                    className={demoButtonClass}>
+                    {t(`demo.users.${account.key}`)}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-gray-500 dark:text-slate-500 mt-4">{t("demo.login.saved")}</p>
+              <div className="flex justify-center gap-3 mt-2">
+                <button type="button" onClick={resetDemo} className={demoButtonClass}>{t("demo.reset")}</button>
+                <button type="button" onClick={exitDemo} className={demoButtonClass}>{t("demo.exit")}</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-gray-600 dark:text-slate-400">{t("demo.login.title")}</p>
+              <button type="button" onClick={startDemo} className={`${demoButtonClass} mt-3 px-6`}>
+                {t("demo.try")}
               </button>
-            ))}
-          </div>
+              <p className="text-xs text-gray-500 dark:text-slate-500 mt-2">{t("demo.login.hint")}</p>
+            </>
+          )}
         </div>
 
         <p className="text-center text-sm text-gray-600 dark:text-slate-400 mt-6">

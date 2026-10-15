@@ -7,6 +7,7 @@ import LoginPage from "../pages/auth/LoginPage";
 import AuthProvider from "../context/AuthProvider";
 import ToastProvider from "../context/ToastProvider";
 import authService from "../api/authService";
+import { demoNavigation, isDemoChosen } from "../api/demo";
 
 vi.mock("../api/authService");
 
@@ -84,20 +85,33 @@ describe("LoginPage", () => {
     expect(screen.getByLabelText("Contraseña")).toHaveAttribute("id", "login-password");
   });
 
-  test("los botones demo rellenan el email y la contraseña de cada cuenta", async () => {
+  test("'Probar la demo' activa la demo y recarga en el login", async () => {
     const user = userEvent.setup();
+    const restart = vi.spyOn(demoNavigation, "restart").mockImplementation(() => {});
     renderLoginAt("/login");
 
-    await user.click(screen.getByRole("button", { name: "Lector demo" }));
-    expect(screen.getByLabelText("Email")).toHaveValue("lector@bookmania.dev");
+    await user.click(screen.getByRole("button", { name: "Probar la demo" }));
+
+    expect(isDemoChosen()).toBe(true);
+    expect(restart).toHaveBeenCalled();
+  });
+
+  test("dentro de la demo, cada usuario rellena su email y la contraseña", async () => {
+    const user = userEvent.setup();
+    localStorage.setItem("bookmania.demo", "1");
+    renderLoginAt("/login");
+
+    await user.click(screen.getByRole("button", { name: "Lectora con multa" }));
+    expect(screen.getByLabelText("Email")).toHaveValue("lectora@bookmania.dev");
     expect(screen.getByLabelText("Contraseña")).toHaveValue("demo1234");
 
-    await user.click(screen.getByRole("button", { name: "Admin demo (solo lectura)" }));
+    await user.click(screen.getByRole("button", { name: "Admin" }));
     expect(screen.getByLabelText("Email")).toHaveValue("admin@bookmania.dev");
-    expect(screen.getByLabelText("Contraseña")).toHaveValue("demo1234");
 
-    // Only fills the form, like a real user would type it - nothing is sent yet.
+    // Only fills the form - nothing is sent until "Iniciar sesión".
     expect(authService.login).not.toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: "Empezar de cero" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Salir de la demo" })).toBeInTheDocument();
   });
 
   test("el botón del ojo muestra y vuelve a ocultar la contraseña", async () => {
