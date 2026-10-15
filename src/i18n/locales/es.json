@@ -67,7 +67,13 @@
       "registerLink": "Regístrate",
       "sessionExpired": "Tu sesión ha caducado. Inicia sesión de nuevo.",
       "welcome": "¡Bienvenid@, {{name}}!",
-      "error": "Email o contraseña incorrectos"
+      "error": "Email o contraseña incorrectos",
+      "demo": {
+        "title": "¿Solo quieres echar un vistazo? Entra con una cuenta de demostración",
+        "password": "Contraseña para las dos:",
+        "reader": "Lector demo",
+        "admin": "Admin demo (solo lectura)"
+      }
     },
     "register": {
       "subtitle": "Crea tu cuenta",
@@ -206,6 +212,7 @@
     "loading": "Cargando panel de administración...",
     "loadError": "Error cargando datos del panel",
     "noPermission": "No tienes permisos de administrador",
+    "demoNotice": "Estás en modo demo: puedes consultarlo todo, pero los cambios están desactivados.",
     "tabs": {
       "loans": "Préstamos",
       "fines": "Multas",

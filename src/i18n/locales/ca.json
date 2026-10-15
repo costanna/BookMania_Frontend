@@ -67,7 +67,13 @@
       "registerLink": "Registra't",
       "sessionExpired": "La teva sessió ha caducat. Inicia sessió de nou.",
       "welcome": "Benvingut/da, {{name}}!",
-      "error": "Correu electrònic o contrasenya incorrectes"
+      "error": "Correu electrònic o contrasenya incorrectes",
+      "demo": {
+        "title": "Només vols fer una ullada? Entra amb un compte de demostració",
+        "password": "Contrasenya per a tots dos:",
+        "reader": "Lector demo",
+        "admin": "Admin demo (només lectura)"
+      }
     },
     "register": {
       "subtitle": "Crea el teu compte",
@@ -206,6 +212,7 @@
     "loading": "Carregant panell d'administració...",
     "loadError": "Error carregant dades del panell",
     "noPermission": "No tens permisos d'administrador",
+    "demoNotice": "Estàs en mode demo: pots consultar-ho tot, però els canvis estan desactivats.",
     "tabs": {
       "loans": "Préstecs",
       "fines": "Multes",
