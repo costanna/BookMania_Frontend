@@ -67,13 +67,7 @@
       "registerLink": "Sign up",
       "sessionExpired": "Your session has expired. Please log in again.",
       "welcome": "Welcome, {{name}}!",
-      "error": "Incorrect email or password",
-      "demo": {
-        "title": "Just want to look around? Log in with a demo account",
-        "password": "Password for both:",
-        "reader": "Demo reader",
-        "admin": "Demo admin (read-only)"
-      }
+      "error": "Incorrect email or password"
     },
     "register": {
       "subtitle": "Create your account",
@@ -212,7 +206,6 @@
     "loading": "Loading admin panel...",
     "loadError": "Error loading panel data",
     "noPermission": "You don't have admin permissions",
-    "demoNotice": "You're in demo mode: you can browse everything, but changes are disabled.",
     "tabs": {
       "loans": "Loans",
       "fines": "Fines",
@@ -315,5 +308,23 @@
   },
   "footer": {
     "madeBy": "Made by"
+  },
+  "demo": {
+    "try": "Try the demo",
+    "reset": "Start over",
+    "exit": "Leave the demo",
+    "banner": "You're in the demo: sample data saved only in this browser.",
+    "login": {
+      "title": "Just want to look around?",
+      "hint": "No account needed: sample data saved only in your browser.",
+      "pickUser": "You're in the demo: choose who to log in as.",
+      "password": "Password for everyone:",
+      "saved": "Your changes are saved in this browser: you can switch users without losing anything."
+    },
+    "users": {
+      "reader": "Reader",
+      "penalized": "Reader with a fine",
+      "admin": "Admin"
+    }
   }
 }

@@ -67,13 +67,7 @@
       "registerLink": "Regístrate",
       "sessionExpired": "Tu sesión ha caducado. Inicia sesión de nuevo.",
       "welcome": "¡Bienvenid@, {{name}}!",
-      "error": "Email o contraseña incorrectos",
-      "demo": {
-        "title": "¿Solo quieres echar un vistazo? Entra con una cuenta de demostración",
-        "password": "Contraseña para las dos:",
-        "reader": "Lector demo",
-        "admin": "Admin demo (solo lectura)"
-      }
+      "error": "Email o contraseña incorrectos"
     },
     "register": {
       "subtitle": "Crea tu cuenta",
@@ -212,7 +206,6 @@
     "loading": "Cargando panel de administración...",
     "loadError": "Error cargando datos del panel",
     "noPermission": "No tienes permisos de administrador",
-    "demoNotice": "Estás en modo demo: puedes consultarlo todo, pero los cambios están desactivados.",
     "tabs": {
       "loans": "Préstamos",
       "fines": "Multas",
@@ -315,5 +308,23 @@
   },
   "footer": {
     "madeBy": "Hecho por"
+  },
+  "demo": {
+    "try": "Probar la demo",
+    "reset": "Empezar de cero",
+    "exit": "Salir de la demo",
+    "banner": "Estás en la demo: datos de prueba guardados solo en este navegador.",
+    "login": {
+      "title": "¿Solo quieres echar un vistazo?",
+      "hint": "Sin cuenta: datos de prueba guardados solo en tu navegador.",
+      "pickUser": "Estás en la demo: elige con quién quieres entrar.",
+      "password": "Contraseña para todos:",
+      "saved": "Tus cambios se guardan en este navegador: puedes cambiar de usuario sin perder nada."
+    },
+    "users": {
+      "reader": "Lector",
+      "penalized": "Lectora con multa",
+      "admin": "Admin"
+    }
   }
 }

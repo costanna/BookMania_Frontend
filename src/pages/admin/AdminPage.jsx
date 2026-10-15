@@ -5,8 +5,6 @@ import bookService from "../../api/bookService";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import LoadingNotice from "../../components/common/LoadingNotice";
 import useToast from "../../hooks/useToast";
-import useAuth from "../../hooks/useAuth";
-import { DEMO_ADMIN_EMAIL } from "../../config/demoAccounts";
 import AdminLoansTab from "./tabs/AdminLoansTab";
 import AdminFinesTab from "./tabs/AdminFinesTab";
 import AdminReservationsTab from "./tabs/AdminReservationsTab";
@@ -30,7 +28,6 @@ const AdminPage = () => {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState({ open: false, message: "", onConfirm: null });
   const { showToast } = useToast();
-  const { user } = useAuth();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchAll must run only once on mount
   useEffect(() => { fetchAll(); }, []);
@@ -70,12 +67,6 @@ const AdminPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold text-pink-700 dark:text-pink-400 mb-6">{t("admin.title")}</h1>
-
-      {user?.email === DEMO_ADMIN_EMAIL && (
-        <p role="note" className="mb-6 rounded-xl border border-pink-200 dark:border-pink-900 bg-pink-50 dark:bg-pink-950 px-4 py-3 text-sm text-pink-800 dark:text-pink-200">
-          {t("admin.demoNotice")}
-        </p>
-      )}
 
       <div role="tablist" aria-label={t("admin.title")} className="flex gap-2 mb-8 border-b border-pink-100 dark:border-slate-700 overflow-x-auto">
         {TAB_KEYS.map((tab) => (

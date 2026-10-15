@@ -79,7 +79,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="h-14" />
+      {/* Same height as the fixed nav below (72px), so nothing renders under it */}
+      <div className="h-[72px]" />
 
       <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-pink-700 dark:bg-pink-950 shadow-md">
         <div className="w-full px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">

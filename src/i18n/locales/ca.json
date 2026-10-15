@@ -67,13 +67,7 @@
       "registerLink": "Registra't",
       "sessionExpired": "La teva sessió ha caducat. Inicia sessió de nou.",
       "welcome": "Benvingut/da, {{name}}!",
-      "error": "Correu electrònic o contrasenya incorrectes",
-      "demo": {
-        "title": "Només vols fer una ullada? Entra amb un compte de demostració",
-        "password": "Contrasenya per a tots dos:",
-        "reader": "Lector demo",
-        "admin": "Admin demo (només lectura)"
-      }
+      "error": "Correu electrònic o contrasenya incorrectes"
     },
     "register": {
       "subtitle": "Crea el teu compte",
@@ -212,7 +206,6 @@
     "loading": "Carregant panell d'administració...",
     "loadError": "Error carregant dades del panell",
     "noPermission": "No tens permisos d'administrador",
-    "demoNotice": "Estàs en mode demo: pots consultar-ho tot, però els canvis estan desactivats.",
     "tabs": {
       "loans": "Préstecs",
       "fines": "Multes",
@@ -315,5 +308,23 @@
   },
   "footer": {
     "madeBy": "Fet per"
+  },
+  "demo": {
+    "try": "Prova la demo",
+    "reset": "Torna a començar",
+    "exit": "Surt de la demo",
+    "banner": "Ets a la demo: dades de prova desades només en aquest navegador.",
+    "login": {
+      "title": "Només vols fer una ullada?",
+      "hint": "Sense compte: dades de prova desades només al teu navegador.",
+      "pickUser": "Ets a la demo: tria amb qui vols entrar.",
+      "password": "Contrasenya per a tots:",
+      "saved": "Els teus canvis es desen en aquest navegador: pots canviar d'usuari sense perdre res."
+    },
+    "users": {
+      "reader": "Lector",
+      "penalized": "Lectora amb multa",
+      "admin": "Admin"
+    }
   }
 }
