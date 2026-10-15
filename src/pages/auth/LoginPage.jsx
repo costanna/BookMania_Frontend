@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import authService from "../../api/authService";
 import useToast from "../../hooks/useToast";
 import PasswordInput from "../../components/common/PasswordInput";
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "../../config/demoAccounts";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -69,6 +70,23 @@ const LoginPage = () => {
             {loading ? t("auth.login.submitting") : t("auth.login.submit")}
           </button>
         </form>
+
+        <div className="mt-8 pt-6 border-t border-pink-100 dark:border-slate-700">
+          <p className="text-center text-sm text-gray-600 dark:text-slate-400">{t("auth.login.demo.title")}</p>
+          <p className="text-center text-xs text-gray-500 dark:text-slate-500 mt-1">
+            {t("auth.login.demo.password")}{" "}
+            <code className="font-mono text-pink-700 dark:text-pink-400">{DEMO_PASSWORD}</code>
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-3">
+            {DEMO_ACCOUNTS.map((account) => (
+              <button key={account.key} type="button"
+                onClick={() => setFormData({ email: account.email, password: DEMO_PASSWORD })}
+                className="border border-pink-200 dark:border-slate-600 text-pink-700 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-slate-800 font-medium rounded-lg py-2 px-3 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-600">
+                {t(`auth.login.demo.${account.key}`)}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <p className="text-center text-sm text-gray-600 dark:text-slate-400 mt-6">
           {t("auth.login.noAccount")}{" "}

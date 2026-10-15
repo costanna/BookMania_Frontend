@@ -84,6 +84,22 @@ describe("LoginPage", () => {
     expect(screen.getByLabelText("Contraseña")).toHaveAttribute("id", "login-password");
   });
 
+  test("los botones demo rellenan el email y la contraseña de cada cuenta", async () => {
+    const user = userEvent.setup();
+    renderLoginAt("/login");
+
+    await user.click(screen.getByRole("button", { name: "Lector demo" }));
+    expect(screen.getByLabelText("Email")).toHaveValue("lector@bookmania.dev");
+    expect(screen.getByLabelText("Contraseña")).toHaveValue("demo1234");
+
+    await user.click(screen.getByRole("button", { name: "Admin demo (solo lectura)" }));
+    expect(screen.getByLabelText("Email")).toHaveValue("admin@bookmania.dev");
+    expect(screen.getByLabelText("Contraseña")).toHaveValue("demo1234");
+
+    // Only fills the form, like a real user would type it - nothing is sent yet.
+    expect(authService.login).not.toHaveBeenCalled();
+  });
+
   test("el botón del ojo muestra y vuelve a ocultar la contraseña", async () => {
     const user = userEvent.setup();
     renderLoginAt("/login");

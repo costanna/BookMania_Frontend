@@ -67,7 +67,13 @@
       "registerLink": "Sign up",
       "sessionExpired": "Your session has expired. Please log in again.",
       "welcome": "Welcome, {{name}}!",
-      "error": "Incorrect email or password"
+      "error": "Incorrect email or password",
+      "demo": {
+        "title": "Just want to look around? Log in with a demo account",
+        "password": "Password for both:",
+        "reader": "Demo reader",
+        "admin": "Demo admin (read-only)"
+      }
     },
     "register": {
       "subtitle": "Create your account",
@@ -206,6 +212,7 @@
     "loading": "Loading admin panel...",
     "loadError": "Error loading panel data",
     "noPermission": "You don't have admin permissions",
+    "demoNotice": "You're in demo mode: you can browse everything, but changes are disabled.",
     "tabs": {
       "loans": "Loans",
       "fines": "Fines",
