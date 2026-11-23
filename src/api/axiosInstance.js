@@ -29,8 +29,8 @@ axiosInstance.interceptors.request.use(
 );
 
 // A GET that dies on a server/network hiccup gets one more try after a short
-// pause. In production this is mostly Railway restarting Postgres or waking
-// the backend: the request in flight 500s, and the very next one works.
+// pause. In production this is mostly the backend (Render) or the database
+// (Neon) waking up: the request in flight 500s, and the very next one works.
 // Only GETs - they're safe to repeat; a retried POST could e.g. create the
 // same loan twice.
 export const RETRY_DELAY_MS = 1500;
