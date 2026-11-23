@@ -9,7 +9,8 @@ COPY . .
 
 # Vite bakes VITE_* vars into the bundle at build time, so it must be passed
 # as a build arg here — setting it only at runtime would have no effect.
-# In Railway, service Variables are exposed as build args automatically.
+# Production runs on Vercel (vercel.json); this image is only for trying the
+# production build locally: docker build --build-arg VITE_API_URL=http://localhost:8080 .
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
 
@@ -28,5 +29,5 @@ COPY --from=build /app/dist ./dist
 EXPOSE 4173
 
 # -s enables SPA fallback (all routes serve index.html, needed for BrowserRouter).
-# Railway sets PORT at runtime; default to 4173 for local `docker run`.
+# Listens on PORT if set; defaults to 4173 for local `docker run`.
 CMD ["sh", "-c", "serve -s dist -l ${PORT:-4173}"]

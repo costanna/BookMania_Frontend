@@ -162,24 +162,25 @@ npm run dev
 
 ---
 
-## 🚢 Deploying to Railway
+## 🚢 Deploying to Vercel
 
-The frontend ships with a `Dockerfile` and `.railway/railway.ts` (Railway Infrastructure as Code,
-applied with `railway config apply` - not on git push): the build stage runs `npm run build`
-and the run stage serves the static `dist/` output with [`serve`](https://www.npmjs.com/package/serve)
-(`-s` enables the SPA fallback that `BrowserRouter` needs).
+The frontend is a static Vite build served by [Vercel](https://vercel.com). Build settings,
+the SPA fallback that `BrowserRouter` needs and long-term caching for hashed assets are all in
+[`vercel.json`](vercel.json). Step-by-step guide: [`DEPLOY.md`](DEPLOY.md).
 
-1. Deploy the backend first (see its own README) and grab its public URL, e.g.
-   `https://bookmaniabackend-production.up.railway.app`.
-2. Create a new Railway service from this repo.
-3. In the service's **Variables** tab, set `VITE_API_URL` to that backend URL.
-   > Vite bakes `VITE_*` variables into the bundle **at build time** — Railway passes service
-   > Variables to the Docker build as build args automatically, and the `Dockerfile` declares
-   > `ARG VITE_API_URL` to receive it. Setting it only after the image is built has no effect;
-   > a redeploy is needed whenever this value changes.
-4. Deploy. Railway builds the `Dockerfile` and serves the app on the `PORT` it assigns.
-5. Go back to the backend service and set its `CORS_ALLOWED_ORIGINS` variable to this frontend's
-   Railway URL, then redeploy the backend — otherwise the browser will block the API calls.
+1. Deploy the backend first (Render, see its own README) and grab its public URL, e.g.
+   `https://bookmania-backend.onrender.com`.
+2. On [vercel.com/new](https://vercel.com/new), import this repo. Vercel picks up `vercel.json`
+   (Vite, `npm run build`, `dist/`).
+3. Under **Environment Variables**, set `VITE_API_URL` to that backend URL (no trailing slash).
+   > Vite bakes `VITE_*` variables into the bundle **at build time**: changing the value later
+   > has no effect until you redeploy.
+4. Deploy. Every push to `main` redeploys production; other branches get preview URLs.
+5. In Render, set the backend's `CORS_ALLOWED_ORIGINS` to this frontend's Vercel URL — otherwise
+   the browser will block the API calls.
+
+The `Dockerfile` (static build served with `serve`) is no longer used in production; it's still
+handy to try the production build locally with `docker build`/`docker run`.
 
 ---
 
@@ -401,25 +402,27 @@ npm run dev
 
 ---
 
-## 🚢 Despliegue en Railway
+## 🚢 Despliegue en Vercel
 
-El frontend incluye un `Dockerfile` y un `.railway/railway.ts` (Infrastructure as Code de Railway,
-se aplica con `railway config apply`, no al hacer push): la etapa de build ejecuta `npm run build`
-y la etapa de ejecución sirve el `dist/` estático con [`serve`](https://www.npmjs.com/package/serve)
-(`-s` activa el fallback SPA que necesita `BrowserRouter`).
+El frontend es un build estático de Vite servido por [Vercel](https://vercel.com). La
+configuración de build, el fallback SPA que necesita `BrowserRouter` y la caché larga de los
+assets con hash están en [`vercel.json`](vercel.json). Guía paso a paso: [`DEPLOY.md`](DEPLOY.md).
 
-1. Despliega primero el backend (ver su propio README) y copia su URL pública, p. ej.
-   `https://bookmaniabackend-production.up.railway.app`.
-2. Crea un servicio nuevo en Railway a partir de este repo.
-3. En la pestaña **Variables** del servicio, configura `VITE_API_URL` con esa URL del backend.
-   > Vite incrusta las variables `VITE_*` en el bundle **en tiempo de build** — Railway pasa las
-   > Variables del servicio al build de Docker como build args automáticamente, y el `Dockerfile`
-   > declara `ARG VITE_API_URL` para recibirla. Configurarla después de construir la imagen no
-   > tiene efecto; hay que redesplegar cada vez que cambie este valor.
-4. Despliega. Railway construye el `Dockerfile` y sirve la app en el `PORT` que asigne.
-5. Vuelve al servicio del backend y configura su variable `CORS_ALLOWED_ORIGINS` con la URL de
-   este frontend en Railway, y redespliega el backend — si no, el navegador bloqueará las
-   peticiones a la API por CORS.
+1. Despliega primero el backend (Render, ver su propio README) y copia su URL pública, p. ej.
+   `https://bookmania-backend.onrender.com`.
+2. En [vercel.com/new](https://vercel.com/new), importa este repo. Vercel lee `vercel.json`
+   (Vite, `npm run build`, `dist/`).
+3. En **Environment Variables**, configura `VITE_API_URL` con esa URL del backend (sin barra
+   final).
+   > Vite incrusta las variables `VITE_*` en el bundle **en tiempo de build**: si cambias el
+   > valor después, no tiene efecto hasta que vuelvas a desplegar.
+4. Despliega. Cada push a `main` redespliega producción; el resto de ramas generan URLs de
+   preview.
+5. En Render, configura `CORS_ALLOWED_ORIGINS` del backend con la URL de este frontend en
+   Vercel; si no, el navegador bloqueará las peticiones a la API por CORS.
+
+El `Dockerfile` (build estático servido con `serve`) ya no se usa en producción; sigue
+siendo útil para probar el build de producción en local con `docker build`/`docker run`.
 
 ---
 

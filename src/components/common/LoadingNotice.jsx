@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // A skeleton alone (animate-pulse gray bars) reads as "loading" only to
-// people already used to that convention - on Railway's free tier the
+// people already used to that convention - on Render's free tier the
 // backend can be asleep and take 30-60s to wake up on the first request of
 // the session, and a silent skeleton for that long looks broken rather than
 // busy. This pairs the same pulse language with an explicit, spoken-out-loud
