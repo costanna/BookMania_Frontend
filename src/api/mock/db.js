@@ -1,8 +1,9 @@
 import { DEMO_DB_KEY, DEMO_PASSWORD, DEMO_USERS, isDemoChosen } from "../demo";
 
-// Bump when the shape of the data changes: an older copy saved in someone's
-// browser is then replaced by the new initial data instead of breaking.
-const DEMO_DB_VERSION = 1;
+// Bump when the shape or the initial data changes: an older copy saved in
+// someone's browser is then replaced by the new initial data instead of
+// breaking or keeping stale books. (2: real editions and covers for every book.)
+const DEMO_DB_VERSION = 2;
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -24,25 +25,41 @@ const MZ = "https://is1-ssl.mzstatic.com/image/thumb";
 
 const seedBooks = [
   // id, title, author, isbn, pages, year, totalCopies, categoryIds, coverUrl
+  // Same Spanish editions and covers as the real catalog (backend src/sql/seed-demo.sql).
   [1, "Aleación de ley", "Brandon Sanderson", "9788490192214", 384, 2011, 3, [3],
     `${MZ}/Publication211/v4/f9/5e/e2/f95ee287-9281-4c07-42d6-5f74bfc93999/9788490192214.jpg/600x600bb.jpg`],
   [2, "Amanecer rojo", "Pierce Brown", "9788490069677", 512, 2014, 5, [4],
     `${MZ}/Publication126/v4/be/52/10/be5210a0-5cf4-889f-27c1-a2082eec797b/9788490069677.jpg/600x600bb.jpg`],
-  [3, "El nombre del viento", "Patrick Rothfuss", "9788401337208", 880, 2007, 1, [1]],
-  [4, "El temor de un hombre sabio", "Patrick Rothfuss", "9788401339639", 1200, 2011, 2, [1]],
-  [5, "El imperio final", "Brandon Sanderson", "9788466658898", 688, 2006, 3, [1]],
-  [6, "Dune", "Frank Herbert", "9788497596824", 784, 1965, 2, [4, 6]],
-  [7, "1984", "George Orwell", "9788499890944", 352, 1949, 3, [4, 6]],
-  [8, "Fahrenheit 451", "Ray Bradbury", "9788490321478", 176, 1953, 2, [4, 6]],
-  [9, "El problema de los tres cuerpos", "Liu Cixin", "9788466659734", 416, 2008, 2, [4]],
-  [10, "El Hobbit", "J. R. R. Tolkien", "9788445000663", 320, 1937, 3, [3, 6]],
-  [11, "Harry Potter y la piedra filosofal", "J. K. Rowling", "9788478884452", 256, 1997, 4, [5]],
-  [12, "Los juegos del hambre", "Suzanne Collins", "9788427202122", 400, 2008, 3, [5, 4]],
-  [13, "El principito", "Antoine de Saint-Exupéry", "9788498381498", 96, 1943, 2, [6]],
-  [14, "Cien años de soledad", "Gabriel García Márquez", "9788497592208", 496, 1967, 3, [6, 7]],
-  [15, "Rayuela", "Julio Cortázar", "9788420437484", 736, 1963, 1, [7]],
-  [16, "La sombra del viento", "Carlos Ruiz Zafón", "9788408163435", 576, 2001, 2, [7]],
-  [17, "Sapiens. De animales a dioses", "Yuval Noah Harari", "9788499926223", 496, 2011, 2, [8]],
+  [3, "El nombre del viento", "Patrick Rothfuss", "9788401352799", 880, 2007, 1, [1],
+    `${MZ}/Publication116/v4/2c/76/78/2c7678e8-6ef3-750d-610d-77df3ee77a80/9788401352799.jpg/600x600bb.jpg`],
+  [4, "El temor de un hombre sabio", "Patrick Rothfuss", "9788401352836", 1200, 2011, 2, [1],
+    `${MZ}/Publication126/v4/3f/5e/78/3f5e7872-ea96-8f39-0914-048bc37ae1ba/9788401352836.jpg/600x600bb.jpg`],
+  [5, "El imperio final", "Brandon Sanderson", "9788490192955", 688, 2006, 3, [1],
+    `${MZ}/Publication211/v4/46/46/cc/4646cc37-41cd-7f2a-b88e-937db4b4356e/9788490192955.jpg/600x600bb.jpg`],
+  [6, "Dune", "Frank Herbert", "9788466342667", 784, 1965, 2, [4, 6],
+    `${MZ}/Publication116/v4/b6/eb/75/b6eb75f8-7bc6-b732-9a35-87abcc37f183/9788466342667.jpg/600x600bb.jpg`],
+  [7, "1984", "George Orwell", "9788423343362", 352, 1949, 3, [4, 6],
+    `${MZ}/Publication126/v4/cd/73/b5/cd73b539-9069-b02a-2367-7934ba9fdb7a/9788423343362.jpg/600x600bb.jpg`],
+  [8, "Fahrenheit 451", "Ray Bradbury", "9788445000977", 176, 1953, 2, [4, 6],
+    `${MZ}/Publication221/v4/19/2c/a9/192ca9b5-496a-fc12-84fb-5187cfeb99a0/9788445000977.jpg/600x600bb.jpg`],
+  [9, "El problema de los tres cuerpos", "Liu Cixin", "9788490695289", 416, 2008, 2, [4],
+    `${MZ}/Publication116/v4/b4/32/c1/b432c154-6071-b712-849a-4534f09f584f/9788490695289.jpg/600x600bb.jpg`],
+  [10, "El Hobbit", "J. R. R. Tolkien", "9788445013946", 320, 1937, 3, [3, 6],
+    "https://covers.openlibrary.org/b/isbn/9788445013946-L.jpg"],
+  [11, "Harry Potter y la piedra filosofal", "J. K. Rowling", "9781781106051", 256, 1997, 4, [5],
+    `${MZ}/Publication211/v4/a0/70/21/a07021f4-a3e7-f62f-40c3-38864cef8360/9781781106051.jpg/600x600bb.jpg`],
+  [12, "Los juegos del hambre", "Suzanne Collins", "9788427200203", 400, 2008, 3, [5, 4],
+    `${MZ}/Publication122/v4/b5/4c/33/b54c334c-7415-4fc6-b116-5c5418811737/9788427200203.jpg/600x600bb.jpg`],
+  [13, "El principito", "Antoine de Saint-Exupéry", "9788498381498", 96, 1943, 2, [6],
+    "https://covers.openlibrary.org/b/isbn/9788498381498-L.jpg"],
+  [14, "Cien años de soledad", "Gabriel García Márquez", "9788439731764", 496, 1967, 3, [6, 7],
+    `${MZ}/Publication211/v4/98/9d/25/989d2556-68fc-03d4-d686-c97df9f70648/9788439731764.jpg/600x600bb.jpg`],
+  [15, "Rayuela", "Julio Cortázar", "9788420437989", 736, 1963, 1, [7],
+    `${MZ}/Publication126/v4/ed/50/88/ed5088ec-02ab-145c-c2e0-d15c762bf195/9788420437989.jpg/600x600bb.jpg`],
+  [16, "La sombra del viento", "Carlos Ruiz Zafón", "9788408095590", 576, 2001, 2, [7],
+    `${MZ}/Publication221/v4/ff/c5/1a/ffc51a56-2c0d-aa3e-9c1a-5c6adaa36d5b/9788408095590.jpg/600x600bb.jpg`],
+  [17, "Sapiens. De animales a dioses", "Yuval Noah Harari", "9788499924748", 496, 2011, 2, [8],
+    `${MZ}/Publication116/v4/ae/bc/79/aebc793f-d82f-7f36-6055-fb554d6af50c/9788499924748.jpg/600x600bb.jpg`],
 ];
 
 const createInitialDb = () => {
