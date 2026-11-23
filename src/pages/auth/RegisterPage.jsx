@@ -5,6 +5,8 @@ import authService from "../../api/authService";
 import useAuth from "../../hooks/useAuth";
 import useToast from "../../hooks/useToast";
 import PasswordInput from "../../components/common/PasswordInput";
+import TryDemo from "../../components/common/TryDemo";
+import { isDemoChosen } from "../../api/demo";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -68,6 +70,14 @@ const RegisterPage = () => {
             {loading ? t("auth.register.submitting") : t("auth.register.submit")}
           </button>
         </form>
+
+        {/* Inside the demo the banner on top already says so (and registering
+            there works locally), so the invitation is only for real visitors. */}
+        {!isDemoChosen() && (
+          <div className="mt-8 pt-6 border-t border-pink-100 dark:border-slate-700 text-center">
+            <TryDemo />
+          </div>
+        )}
 
         <p className="text-center text-sm text-gray-600 dark:text-slate-400 mt-6">
           {t("auth.register.haveAccount")}{" "}

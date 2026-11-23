@@ -5,9 +5,8 @@ import useAuth from "../../hooks/useAuth";
 import authService from "../../api/authService";
 import useToast from "../../hooks/useToast";
 import PasswordInput from "../../components/common/PasswordInput";
-import { DEMO_PASSWORD, DEMO_USERS, exitDemo, isDemoChosen, resetDemo, startDemo } from "../../api/demo";
-
-const demoButtonClass = "border border-pink-200 dark:border-slate-600 text-pink-700 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-slate-800 font-medium rounded-lg py-2 px-3 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-600";
+import TryDemo, { demoButtonClass } from "../../components/common/TryDemo";
+import { DEMO_PASSWORD, DEMO_USERS, exitDemo, isDemoChosen, resetDemo } from "../../api/demo";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -97,13 +96,7 @@ const LoginPage = () => {
               </div>
             </>
           ) : (
-            <>
-              <p className="text-sm text-gray-600 dark:text-slate-400">{t("demo.login.title")}</p>
-              <button type="button" onClick={startDemo} className={`${demoButtonClass} mt-3 px-6`}>
-                {t("demo.try")}
-              </button>
-              <p className="text-xs text-gray-500 dark:text-slate-500 mt-2">{t("demo.login.hint")}</p>
-            </>
+            <TryDemo />
           )}
         </div>
 
